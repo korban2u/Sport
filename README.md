@@ -1,161 +1,306 @@
-Tu es un développeur full-stack expert spécialisé en applications web modernes et performantes.
+# Sport Training Tracker 🏋️‍♂️
 
-CONTEXTE :
-Je souhaite créer une application web de suivi d'entraînement sportif pour mon usage personnel (boxe/force). L'app doit être simple, professionnelle et épurée.
+Application web de suivi d'entraînement sportif pour la boxe et la musculation. Interface moderne, PWA-ready, avec timer intégré et tracking de performances.
 
-STACK TECHNIQUE REQUISE :
-- Frontend : Next.js 14+ (App Router) avec React
-- Styling : Tailwind CSS pour une interface moderne et responsive
-- Base de données : Supabase (backend-as-a-service gratuit, parfait pour Netlify)
-- Déploiement : Netlify
-- Mobile : Design responsive-first (PWA si possible)
+## 🚀 Stack Technique
 
-STRUCTURE DE DONNÉES :
+- **Frontend**: Next.js 14 (App Router) + React
+- **Styling**: Tailwind CSS
+- **Animations**: Framer Motion
+- **Backend**: Supabase (PostgreSQL)
+- **Déploiement**: Netlify
+- **PWA**: Progressive Web App ready
 
-Modèle Séance :
-- id (UUID)
-- nom (string) - ex: "Lundi : Force & Puissance"
-- jour (string) - ex: "Lundi", "Vendredi", "Samedi"
-- type (string) - ex: "Force & Puissance", "Explosivité & Puissance"
-- date_creation (timestamp)
-- date_derniere_execution (timestamp)
+## ✨ Fonctionnalités
 
-Modèle Exercice :
-- id (UUID)
-- seance_id (foreign key)
-- nom (string) - ex: "Développé couché"
-- ordre (int) - pour l'affichage séquentiel
-- series (int) - ex: 4
-- repetitions (string) - ex: "5 reps", "8-10 reps"
-- charge (string) - ex: "80-85% 1RM", "poids du corps"
-- repos (string) - ex: "2-3 min", "45 sec"
-- notes (text) - instructions, alternatives
-- video_youtube_url (string) - lien embed YouTube
-- categorie (string) - ex: "A1", "B2", "Finisher"
+### 📋 Gestion des séances
+- 3 séances pré-configurées (Force, Explosivité, Jambes)
+- Vue détaillée avec exercices organisés par catégorie (A1, B1, etc.)
+- Affichage complet : séries, reps, charge, temps de repos
 
-Modèle Performance :
-- id (UUID)
-- exercice_id (foreign key)
-- date_execution (timestamp)
-- charge_utilisee (string) - ex: "50kg"
-- series_completees (int)
-- repetitions_completees (string)
-- notes_perso (text) - ressenti, difficulté
+### 📊 Suivi des performances
+- Enregistrement rapide après chaque exercice
+- Historique avec dernière performance affichée
+- Comparaison automatique (progression visible)
 
-DONNÉES PAR DÉFAUT À INTÉGRER :
+### ⏱️ Timer intégré
+- Floating button accessible partout
+- Préréglages intelligents basés sur l'exercice
+- Presets manuels (30s, 45s, 1min, 1:30, 2min, 3min)
+- Notification sonore + vibration à la fin
 
-Crée automatiquement 3 séances avec leurs exercices complets :
+### 🎥 Vidéos YouTube
+- Intégration sécurisée (youtube-nocookie.com)
+- Modal fullscreen sans quitter l'app
+- Lazy loading pour performances optimales
 
-SÉANCE 1 - LUNDI : Force & Puissance (Haut du corps focus)
-Échauffement (non tracké)
+### 🎨 Interface moderne
+- Dark mode par défaut
+- Design responsive mobile-first
+- Animations fluides
+- Swipe gestures entre exercices
 
-A1. Développé couché : 4×5 reps (80-85% 1RM) | Repos 2-3 min
-A2. Tractions lestées : 3×5-6 reps | Repos 2-3 min
-B1. Overhead Press (Militaire) : 3×6 reps | Repos 2 min
-B2. Rowing barre : 3×6-8 reps | Repos 2 min
-C. Cable/Poulie Anti-Rotation Press : 3×10 reps chaque côté | Repos 45 sec
-   Note: "Alternative Pallof Press : Si pas de poulie → Planks latéraux dynamiques (side plank avec rotation du buste, 3×12 reps/côté)"
-D. Farmer Walk : 3×30-40 mètres
-   Note: "Alternative : Haltères/kettlebells en main OU Dead Hangs (suspension à la barre, 3×30-45 sec) pour force de préhension"
+## 📦 Installation
 
-SÉANCE 2 - VENDREDI : Explosivité & Puissance
-Échauffement explosif (non tracké)
+### Prérequis
+- Node.js 18+
+- npm ou yarn
+- Compte Supabase (gratuit)
 
-A. Landmine Press (unilatéral) : 4×8-10 reps par bras (charge modérée, vitesse maximale) | Repos 1 min
-B. Pompes pliométriques (clap push-ups) : 4×8-10 reps | Repos 1,5 min
-   Note: "Alternative medicine ball slams : Les pompes pliométriques développent la même explosivité du haut du corps"
-C. Woodchoppers avec haltère : 3×10 reps par côté (explosif) | Repos 1,5 min
-   Note: "Alternative medicine ball rotational throws : Mouvement diagonal explosif avec un haltère, reproduit la rotation du tronc"
-D. Landmine Rotation : 3×6 reps par côté (explosif) | Repos 1,5 min
-E. Jump Squats (poids du corps ou léger) : 3×10 reps | Repos 1,5 min
-   Note: "Alternative aux exercices explosifs avec medicine ball : Développe la puissance des jambes pour transférer la force vers le haut du corps"
-F. Pull-ups explosifs : 3×6-8 reps | Repos 1,5 min
-G. Mountain Climbers explosifs : 3×30 secondes | Repos 1 min
-   Note: "Complément cardio/explosivité : Travaille le core, l'endurance et simule le mouvement constant de la boxe"
-Finisher : Assault Bike 45/15
-   Note: "Alternative : Jump rope intervals (45 sec vitesse modérée / 15 sec sprints maximaux × 5-8 rounds)"
+### 1. Cloner le projet
 
-SÉANCE 3 - SAMEDI (Optionnelle) : Jambes & Conditionnement
+```bash
+git clone <repository-url>
+cd Sport
+```
 
-A. Trap Bar Deadlift : 4×8 reps (70-75% 1RM) | Repos 2 min
-B. Box Jumps : 4×5 reps (hauteur modérée) | Repos 2 min
-C. Bulgarian Split Squats : 3×8 reps par jambe | Repos 1,5 min
-D. Broad Jumps (sauts en longueur) : 3×5 reps | Repos 1,5 min
-   Note: "Alternative jump squats : Plus spécifique pour la puissance horizontale, essentielle pour les déplacements en boxe"
-E. Glute Bridges : 3×12 reps | Repos 1 min
-F. Core Circuit (2-3 tours) :
-   - Hanging Leg Raises : 15 reps (OU Leg raises au sol si pas de barre)
-   - Russian Twists au poids du corps ou avec haltère/poids : 20 reps (10 chaque côté)
-     Note: "Alternative medicine ball : Tenez un haltère, disque de poids, ou même un sac à dos rempli"
-   - Plank : 45-60 sec
-   - Bicycle Crunches : 20 reps
-   Repos 30 sec entre exercices
+### 2. Installer les dépendances
 
-FONCTIONNALITÉS PRINCIPALES :
+```bash
+npm install
+```
 
-1. GESTION DES SÉANCES
-   - Affichage en grille/cartes des 3 séances par défaut
-   - Vue détaillée par séance avec tous les exercices organisés par catégorie (A1, A2, B1, etc.)
-   - Possibilité de créer de nouvelles séances personnalisées
-   - Chaque exercice affiche : nom, séries×reps, charge cible, temps de repos
-   - Affichage des notes/alternatives en accordéon ou tooltip
+### 3. Configuration Supabase
 
-2. ENREGISTREMENT DES PERFORMANCES
-   - Lors de l'exécution d'une séance : formulaire rapide pour noter par exercice :
-     * Charge utilisée (ex: 50kg, poids du corps)
-     * Séries complétées
-     * Reps effectuées
-     * Notes personnelles (ressenti, difficulté)
-   - Sauvegarde automatique avec timestamp
+#### a. Créer un projet Supabase
+1. Allez sur [supabase.com](https://supabase.com)
+2. Créez un nouveau projet
+3. Notez votre **URL** et **anon key**
 
-3. COMPARAISON & HISTORIQUE
-   - Lors de l'ouverture d'un exercice : affichage "Dernière fois : 3×10 @ 50kg (il y a 5 jours)"
-   - Vue historique par exercice (graphique simple d'évolution de la charge)
-   - Badge visuel si progression (+5kg, +2 reps, etc.)
+#### b. Exécuter les migrations SQL
 
-4. TIMER INTÉGRÉ
-   - Timer de repos visible en permanence (sticky/floating button)
-   - Presets selon l'exercice en cours (lecture auto du temps de repos)
-   - Presets manuels : 30s, 45s, 1min, 1min30, 2min, 3min
-   - Notification sonore + vibration en fin de timer
-   - Possibilité de skip ou extend
+Dans le SQL Editor de Supabase, exécutez dans l'ordre :
 
-5. VIDÉOS YOUTUBE
-   - Chaque exercice peut avoir un lien YouTube
-   - Visualisation en modal/embed (sans quitter l'app)
-   - Suggestions par défaut pour les exercices standards (optionnel)
+1. `supabase/migrations/001_create_schema.sql` - Crée les tables
+2. `supabase/migrations/002_seed_default_sessions.sql` - Insère les 3 séances par défaut
 
-6. INTERFACE
-   - Design professionnel type "fitness app" moderne
-   - Palette : tons sombres (dark mode par défaut) avec accents colorés (ex: bleu/vert pour progression)
-   - Navigation :
-     * Dashboard : liste des séances (cards cliquables)
-     * Vue séance : liste exercices avec bouton "Démarrer la séance"
-     * Mode exécution : exercice par exercice avec timer + form de saisie
-     * Historique : graphiques et stats
-   - Mobile-first, swipe gestures pour naviguer entre exercices
-   - Animations fluides (Framer Motion recommandé)
+#### c. Configurer les variables d'environnement
 
-CONTRAINTES :
-- Seed automatique des 3 séances au premier lancement
-- Code propre et commenté
-- Performance optimale (lazy loading des vidéos)
-- Offline-first si possible (PWA avec cache)
+Créez un fichier `.env.local` à la racine :
 
-LIVRABLES ATTENDUS :
-1. Projet Next.js complet avec structure claire
-2. Schéma Supabase (SQL) avec migration pour les 3 séances par défaut
-3. Composants React réutilisables (ExerciseCard, TimerWidget, PerformanceForm, etc.)
-4. Service d'embed YouTube sécurisé
-5. Instructions de déploiement Netlify
-6. README détaillé
+```bash
+NEXT_PUBLIC_SUPABASE_URL=https://votre-projet.supabase.co
+NEXT_PUBLIC_SUPABASE_ANON_KEY=votre_anon_key_ici
+```
 
-APPROCHE DE DÉVELOPPEMENT :
-Phase 1 : Setup projet + Supabase + seed des séances par défaut
-Phase 2 : Affichage des séances et exercices (lecture seule)
-Phase 3 : Enregistrement des performances + comparaison "dernière fois"
-Phase 4 : Timer intégré avec presets
-Phase 5 : Intégration vidéos YouTube
-Phase 6 : Optimisation mobile + PWA + design final
+### 4. Lancer le serveur de développement
 
-Fait tout d'un coups je sais que tu es chaud en code
+```bash
+npm run dev
+```
+
+Ouvrez [http://localhost:3000](http://localhost:3000) 🎉
+
+## 🗂️ Structure du projet
+
+```
+Sport/
+├── app/                          # Next.js App Router
+│   ├── layout.tsx               # Layout principal
+│   ├── page.tsx                 # Dashboard (liste des séances)
+│   ├── globals.css              # Styles globaux
+│   └── session/
+│       └── [id]/
+│           ├── page.tsx         # Détail d'une séance
+│           └── execute/
+│               └── page.tsx     # Mode exécution (exercice par exercice)
+├── components/                   # Composants React
+│   ├── SessionCard.tsx          # Card de séance
+│   ├── ExerciseCard.tsx         # Card d'exercice
+│   ├── PerformanceForm.tsx      # Formulaire de perf
+│   ├── Timer.tsx                # Timer flottant
+│   └── YoutubeModal.tsx         # Modal vidéo YouTube
+├── lib/                         # Utilitaires
+│   ├── supabase.ts             # Client Supabase
+│   ├── youtube.ts              # Helpers YouTube
+│   └── utils.ts                # Fonctions utilitaires
+├── types/                       # Types TypeScript
+│   └── index.ts
+├── supabase/                    # Migrations SQL
+│   └── migrations/
+│       ├── 001_create_schema.sql
+│       └── 002_seed_default_sessions.sql
+├── public/                      # Assets statiques
+│   ├── manifest.json           # PWA manifest
+│   └── robots.txt
+├── package.json
+├── tsconfig.json
+├── tailwind.config.js
+├── next.config.js
+├── netlify.toml                # Config Netlify
+└── README.md
+```
+
+## 🎯 Utilisation
+
+### Dashboard
+- Affiche les 3 séances disponibles
+- Stats rapides (nombre de séances, cette semaine, progression)
+- Cliquez sur une séance pour voir le détail
+
+### Vue Séance
+- Liste complète des exercices par catégorie
+- Dernière performance affichée pour chaque exercice
+- Notes et alternatives en accordéon
+- Bouton "Démarrer la séance" → Mode exécution
+
+### Mode Exécution
+- Exercices un par un avec barre de progression
+- Formulaire rapide pour enregistrer les performances
+- Timer automatique basé sur le temps de repos
+- Bouton vidéo si disponible
+- Navigation Précédent/Suivant
+
+### Timer
+- Cliquez sur le bouton flottant (en bas à droite)
+- Sélectionnez un preset ou utilisez le temps de l'exercice en cours
+- Démarrer/Pause/Reset
+- Extend +30s ou +1min pendant l'exécution
+- Notification sonore + vibration à la fin
+
+## 🚢 Déploiement sur Netlify
+
+### Option 1 : Via l'interface Netlify
+
+1. Push votre code sur GitHub
+2. Connectez-vous sur [netlify.com](https://netlify.com)
+3. "New site from Git" → Sélectionnez votre repo
+4. Build settings :
+   - **Build command**: `npm run build`
+   - **Publish directory**: `.next`
+5. Variables d'environnement :
+   - `NEXT_PUBLIC_SUPABASE_URL`
+   - `NEXT_PUBLIC_SUPABASE_ANON_KEY`
+6. Deploy!
+
+### Option 2 : Via Netlify CLI
+
+```bash
+npm install -g netlify-cli
+netlify login
+netlify init
+netlify deploy --prod
+```
+
+### Configuration automatique
+
+Le fichier `netlify.toml` est déjà configuré avec :
+- Build command
+- Redirects pour Next.js
+- Plugin Next.js officiel
+
+## 📱 PWA (Progressive Web App)
+
+L'app est PWA-ready avec :
+- `manifest.json` configuré
+- Mode standalone (comme une app native)
+- Dark theme
+- Icons (nécessite `icon-192.png` et `icon-512.png` dans `/public`)
+
+Pour générer les icons :
+1. Créez une image 512×512 de votre logo
+2. Utilisez un outil comme [realfavicongenerator.net](https://realfavicongenerator.net)
+3. Placez les fichiers dans `/public`
+
+## 📊 Données par défaut
+
+### Séance 1 - LUNDI : Force & Puissance
+6 exercices focus haut du corps (développé couché, tractions, overhead press, etc.)
+
+### Séance 2 - VENDREDI : Explosivité & Puissance
+8 exercices explosifs (landmine press, pompes plio, jump squats, etc.)
+
+### Séance 3 - SAMEDI : Jambes & Conditionnement
+9 exercices jambes + core circuit
+
+Toutes les séances incluent :
+- Séries et répétitions détaillées
+- Charges cibles (% 1RM ou descriptif)
+- Temps de repos spécifiques
+- Notes et alternatives
+
+## 🛠️ Développement
+
+### Commandes disponibles
+
+```bash
+npm run dev      # Serveur de développement
+npm run build    # Build production
+npm run start    # Serveur production local
+npm run lint     # Linter
+```
+
+### Ajouter une nouvelle séance
+
+1. Via l'interface Supabase SQL Editor :
+
+```sql
+INSERT INTO seances (nom, jour, type) VALUES
+('Mardi : Cardio', 'Mardi', 'Cardio');
+
+-- Récupérez l'ID généré puis ajoutez les exercices :
+INSERT INTO exercices (seance_id, nom, ordre, series, repetitions, charge, repos, categorie) VALUES
+('id-de-la-seance', 'Burpees', 1, 3, '15 reps', 'Poids du corps', '1 min', 'A');
+```
+
+2. Les nouvelles séances apparaîtront automatiquement sur le dashboard
+
+### Modifier le design
+
+- **Couleurs** : `tailwind.config.js` → section `extend.colors`
+- **Animations** : `tailwind.config.js` → section `extend.animation`
+- **Layout** : `app/layout.tsx`
+- **Styles globaux** : `app/globals.css`
+
+## 🔧 Troubleshooting
+
+### Erreur "Aucune séance trouvée"
+- Vérifiez que les migrations SQL ont été exécutées dans Supabase
+- Vérifiez les variables d'environnement dans `.env.local`
+- Consultez la console Supabase pour les erreurs
+
+### Timer ne fonctionne pas sur mobile
+- Assurez-vous que le navigateur supporte les notifications
+- Vérifiez les permissions du navigateur
+- La vibration nécessite HTTPS (fonctionne en localhost)
+
+### Vidéos YouTube ne chargent pas
+- Vérifiez le format de l'URL (doit être une URL YouTube valide)
+- Vérifiez la console pour les erreurs CSP
+- Testez avec une URL différente
+
+## 📝 Roadmap
+
+- [ ] Graphiques de progression par exercice
+- [ ] Export des données (CSV)
+- [ ] Mode offline complet (Service Worker)
+- [ ] Notifications push pour rappels d'entraînement
+- [ ] Partage de séances entre utilisateurs
+- [ ] Calculateur de 1RM
+- [ ] Templates de programmes avancés
+
+## 🤝 Contribution
+
+Ce projet est pour usage personnel, mais les suggestions sont bienvenues !
+
+1. Fork le projet
+2. Créez une branche (`git checkout -b feature/AmazingFeature`)
+3. Commit vos changements (`git commit -m 'Add AmazingFeature'`)
+4. Push vers la branche (`git push origin feature/AmazingFeature`)
+5. Ouvrez une Pull Request
+
+## 📄 Licence
+
+Projet personnel - Utilisation libre
+
+## 🙏 Remerciements
+
+- [Next.js](https://nextjs.org) - Framework React
+- [Supabase](https://supabase.com) - Backend as a Service
+- [Tailwind CSS](https://tailwindcss.com) - Styling
+- [Framer Motion](https://www.framer.com/motion) - Animations
+- [Netlify](https://netlify.com) - Hosting
+
+---
+
+Made with 💪 for gains
